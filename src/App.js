@@ -1,33 +1,22 @@
-import React, { Component } from 'react'
+import React from 'react'
+import { connect } from 'react-redux'
+import {
+  BrowserRouter as Router,
+  Route
+} from 'react-router-dom'
 
-import withNav from './enhancers/withNav'
-import Toaster from './components/toaster'
-import CommandInput from './components/commandInput'
-import Results from './components/results'
+import Nav from './components/nav'
+import Home from './scenes/home'
+import Callback from './scenes/callback'
 
-/**
- * Single container component (very simple app)
- */
-class App extends Component {
-  render () {
-    return (
-      <div className='container-fluid'>
-        <CommandInput
-          value='search summer of 69'
-          loading={false}
-          actions={{
-            onSubmit: console.log,
-            onChange: console.log
-          }}
-        />
-        <Results
-          entities={{}}
-          order={[]}
-          loading={false}
-        />
-      </div>
-    )
-  }
-}
+const Routes = ({ profile }) => (
+  <Router>
+    <React.Fragment>
+      <Nav profile={profile} />
+      <Route exact path='/' component={Home} />
+      <Route path='/callback' component={Callback} />
+    </React.Fragment>
+  </Router>
+)
 
-export default withNav(App)
+export default connect(({ profile }) => ({ profile }))(Routes)

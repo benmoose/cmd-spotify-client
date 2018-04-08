@@ -7,9 +7,10 @@ import {
   NavbarGroup,
   NavbarDivider,
   NavbarHeading,
-  AnchorButton,
   Button,
-  Classes
+  AnchorButton,
+  Classes,
+  Icon
 } from '@blueprintjs/core'
 
 const NavBarWithMargin = styled(Navbar)`
@@ -21,31 +22,51 @@ const NavText = styled.span`
   opacity: .65;
 `
 
-const Nav = ({ actions, profile }) => {
+const Nav = ({ profile }) => {
   return (
     <NavBarWithMargin>
       <NavbarGroup>
         <NavbarHeading>Blokur</NavbarHeading>
         <NavbarDivider />
-        <AnchorButton href='#' icon='code' className={Classes.MINIMAL}>Client</AnchorButton>
-        <AnchorButton href='#' icon='code' className={Classes.MINIMAL}>Server</AnchorButton>
+        <AnchorButton
+          href='https://github.com/benjaminhadfield/cmd-spotify-client'
+          icon='code'
+          className={Classes.MINIMAL}
+        >Client</AnchorButton>
+        <AnchorButton
+          href='https://github.com/benjaminhadfield/cmd-spotify-server'
+          icon='code'
+          className={Classes.MINIMAL}
+        >Server</AnchorButton>
       </NavbarGroup>
       <NavbarGroup align={Alignment.RIGHT}>
-        <NavText>Login to interact with your playlists</NavText>
-        <Button
-          icon='log-in'
-          onClick={actions.onLoginRequest}
-        >
-          Login
-        </Button>
+        {
+          profile.accessToken
+            ? (
+              <NavText>{profile.display_name || 'Logged in'}</NavText>
+            )
+            : (
+              <React.Fragment>
+                <NavText>Login to interact with your playlists</NavText>
+                <AnchorButton
+                  icon='log-in'
+                  href={`${process.env.REACT_APP_API_URL}/v1/oauth/authorise`}
+                >
+                  Login
+                </AnchorButton>
+              </React.Fragment>
+            )
+        }
+        <NavbarDivider />
+        <Button icon='help' className={Classes.MINIMAL} />
       </NavbarGroup>
     </NavBarWithMargin>
   )
 }
 
 Nav.propTypes = {
-  actions: PropTypes.shape({
-    onLoginRequest: PropTypes.func.isRequired
+  profile: PropTypes.shape({
+    accessToken: PropTypes.string
   }).isRequired
 }
 

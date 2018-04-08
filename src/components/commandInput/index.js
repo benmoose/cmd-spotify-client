@@ -6,7 +6,7 @@ import { Button, Classes, InputGroup } from '@blueprintjs/core'
 /**
  * Helper elements
  */
-const Container = styled.div`
+const Container = styled.form`
   margin-bottom: 15px;
 `
 
@@ -15,6 +15,7 @@ const ActionButton = (icon = 'search') => {
     <Button
       className={Classes.MINIMAL}
       icon={icon}
+      type='submit'
     />
   )
 }
@@ -23,13 +24,24 @@ const ActionButton = (icon = 'search') => {
  * CommandInput
  * Simply a controlled text-input component
  */
-const CommandInput = ({ value, loading, actions }) => {
+const CommandInput = ({ value, loading, command, actions }) => {
+  let icon = 'search'
+  // update icon based on command type
+  if (command) {
+    switch (command.type) {
+      case 'add': {
+        icon = 'plus'
+        break
+      }
+    }
+  }
+  
   return (
-    <Container>
+    <Container onSubmit={actions.onSubmit}>
       <InputGroup
         className={Classes.LARGE}
         leftIcon='slash'
-        rightElement={ActionButton('search')}
+        rightElement={ActionButton(icon)}
         placeholder='search summer of 69'
         value={value}
         onChange={actions.onChange}
