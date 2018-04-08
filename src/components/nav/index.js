@@ -10,7 +10,6 @@ import {
   Button,
   AnchorButton,
   Classes,
-  Icon
 } from '@blueprintjs/core'
 
 const NavBarWithMargin = styled(Navbar)`

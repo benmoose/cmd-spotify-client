@@ -33,6 +33,7 @@ const CommandInput = ({ value, loading, command, actions }) => {
         icon = 'plus'
         break
       }
+      default: break
     }
   }
   

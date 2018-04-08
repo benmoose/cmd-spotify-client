@@ -68,6 +68,7 @@ class Home extends React.Component {
           })
         break
       }
+      default: break
     }
   }
 
