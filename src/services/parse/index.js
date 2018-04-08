@@ -26,8 +26,12 @@ export const splitTrackAndPlaylist = (body) => {
   const splitString = ' to '
   const splitPoint = body.lastIndexOf(' to ')
   const hasSplitPoint = splitPoint !== -1
-  const track = body.substring(0, hasSplitPoint ? splitPoint : body.length)
-  const playlist = body.substring(splitPoint + splitString.length)
+  const track = hasSplitPoint
+    ? body.substring(0, splitPoint)
+    : body
+  const playlist = hasSplitPoint
+    ? body.substring(splitPoint + splitString.length)
+    : ''
   return [track, playlist].map(s => s ? s.trim() : s)
 }
 

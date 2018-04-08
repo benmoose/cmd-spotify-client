@@ -41,12 +41,20 @@ const Img = styled.img`
 
 const Results = ({ command, spotify, profile, loading, actions }) => {
   const isAuthenticated = profile.accessToken
+  // TODO: this could be optimised
+  // at the moment it's being computed even when no playlist search
+  // is requested
   const playlists = spotify.playlists.order
     .map(id => spotify.playlists.entities[id])
     .filter(playlist => {
       const playlistName = (playlist && playlist.name) || ''
       const commandPlaylist = (command && command.playlist) || ''
-      return command && playlistName.toLowerCase().includes(commandPlaylist.toLowerCase())
+      // only show playlists if `command.playlist` is present
+      if (!commandPlaylist) {
+        return false
+      }
+      // return playlists with matching names to the search
+      return playlistName.toLowerCase().includes(commandPlaylist.toLowerCase())
     })
 
   return (

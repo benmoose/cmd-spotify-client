@@ -14,7 +14,7 @@ https://github.com/benjaminhadfield/cmd-spotify-client.git
 cd cmd-spotify-client
 ```
 
-The next steps differ depending on whether you arre using docker or a local
+The next steps differ depending on whether you are using docker or a local
 version of Node to run the server.
 
 #### Docker
@@ -34,3 +34,11 @@ docker run -p 3000:3000 cmd-spotify/client
 If you want to use a different port on your host machine, change the `-p` flag
 to `<PORT>:3000`. If you do this, then you will need to change the CLIENT URL
 environment variable on the server to point to the new port.
+
+#### Local Node
+
+3. In the project root, run
+
+```
+yarn start
+```

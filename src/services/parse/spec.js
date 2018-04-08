@@ -13,12 +13,22 @@ describe('test splitCommandAndInput', () => {
     const expected = ['search', '1 foo 2 bar 3 baz .']
     expect(splitCommandAndInput(input)).toEqual(expected)
   })
+  it('should split correctly', () => {
+    const input = 's   sometrack'
+    const expected = ['s', 'sometrack']
+    expect(splitCommandAndInput(input)).toEqual(expected)
+  })
 })
 
 describe('test splitTrackAndPlaylist', () => {
   it('should split correctly', () => {
     const input = '  track a to  b  to   playlist 1 '
     const expected = ['track a to  b', 'playlist 1']
+    expect(splitTrackAndPlaylist(input)).toEqual(expected)
+  })
+  it('should split correctly', () => {
+    const input = 'onlyone'
+    const expected = ['onlyone', '']
     expect(splitTrackAndPlaylist(input)).toEqual(expected)
   })
 })
@@ -49,11 +59,11 @@ describe('test parseCommand', () => {
   it('should return a correct partial add command object', () => {
     const expected = {
       type: 'add',
-      track: 'foo',
+      track: 'inthemiddleoftyping',
       playlist: '',
       requiresAuth: true
     }
-    expect(parseCommand(' add foo ')).toEqual(expected)
+    expect(parseCommand('a inthemiddleoftyping')).toEqual(expected)
   })
   it('should return null on invalid input', () => {
     expect(parseCommand('foobar5 sf8 ')).toBeNull()
