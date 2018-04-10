@@ -21,7 +21,7 @@ const NavText = styled.span`
   opacity: .65;
 `
 
-const Nav = ({ profile }) => {
+const Nav = ({ profile, actions }) => {
   return (
     <NavBarWithMargin>
       <NavbarGroup>
@@ -57,7 +57,11 @@ const Nav = ({ profile }) => {
             )
         }
         <NavbarDivider />
-        <Button icon='help' className={Classes.MINIMAL} />
+        <Button
+          icon='help'
+          onClick={actions.onHelpClick}
+          className={Classes.MINIMAL}
+        />
       </NavbarGroup>
     </NavBarWithMargin>
   )
@@ -66,6 +70,9 @@ const Nav = ({ profile }) => {
 Nav.propTypes = {
   profile: PropTypes.shape({
     accessToken: PropTypes.string
+  }).isRequired,
+  actions: PropTypes.shape({
+    onHelpClick: PropTypes.func.isRequired
   }).isRequired
 }
 
